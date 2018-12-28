@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Giovanni Collazo",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "sqlite": "^3.0.0"
   },
