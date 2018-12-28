@@ -1,13 +1,13 @@
 {
   "name": "sqlogs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query",
   "main": "sqlogs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Giovanni Collazo",
   "license": "ISC",
   "dependencies": {
     "sqlite": "^3.0.0"
