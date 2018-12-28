@@ -1,6 +1,6 @@
 {
   "name": "sqlogs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query",
   "main": "sqlogs.js",
   "scripts": {
