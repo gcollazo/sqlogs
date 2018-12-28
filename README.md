@@ -1,6 +1,8 @@
 # sqlogs
 
-## Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query.
+### Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query.
+
+---
 
 ```bash
 $ npm install sqlogs
