@@ -65,3 +65,9 @@ const log = require('sqlogs');
 // Just write a simple message
 log('Hello, world!');
 ```
+
+### Querying
+
+```bash
+$ sqlite3 sqlogs.sqlite "SELECT * FROM logs"
+```
