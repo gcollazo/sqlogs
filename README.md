@@ -16,7 +16,9 @@ console.log('Hello, world!');
 
 ```bash
 $ sqlite3 sqlogs.sqlite "SELECT * FROM logs"
+1| Hello, world!|2018-12-29T06:09:29.516Z|DEFAULT|INFO|
 ```
+
 
 ### Why?
 
@@ -35,6 +37,13 @@ The module will create a file on the same directory that the script is invoked o
 ### Configuration
 
 You can optionally pass an options object as the last argument to change a few settings. Currently you can set the `group`, `level` and add additional columns by setting a `meta` key to an object. The options object must include a `sqlogs` key with all options. See usage examples below.
+
+### Database schema
+
+```bash
+$ sqlite3 sqlogs.sqlite ".schema"
+CREATE TABLE `logs` (`id` integer NOT NULL PRIMARY KEY, `message` text, `timestamp` text, `group` text, `level` text);
+```
 
 ### Usage Examples
 
