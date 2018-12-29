@@ -7,11 +7,15 @@ $ npm install sqlogs
 ```
 
 ```js
-// Import and overwrite to console.log
+// Import and overwrite console.log
 console.log = require('sqlogs');
 
 // Works as usual but also writes a log entry in sqlite
 console.log('Hello, world!');
+```
+
+```bash
+$ sqlite3 sqlogs.sqlite "SELECT * FROM logs"
 ```
 
 ### Why?
@@ -64,10 +68,4 @@ const log = require('sqlogs');
 
 // Just write a simple message
 log('Hello, world!');
-```
-
-### Querying
-
-```bash
-$ sqlite3 sqlogs.sqlite "SELECT * FROM logs"
 ```
