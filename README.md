@@ -1,4 +1,4 @@
-# sqlogs
+# sqlogs [![Build Status](https://travis-ci.com/gcollazo/sqlogs.svg?branch=master)](https://travis-ci.com/gcollazo/sqlogs)
 
 ### Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query.
 
@@ -18,7 +18,6 @@ console.log('Hello, world!');
 $ sqlite3 sqlogs.sqlite "SELECT * FROM logs"
 1| Hello, world!|2018-12-29T06:09:29.516Z|DEFAULT|INFO|
 ```
-
 
 ### Why?
 
