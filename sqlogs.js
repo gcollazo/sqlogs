@@ -2,7 +2,11 @@
 const sqlite = require('sqlite');
 
 const DB_FILE_PATH = './sqlogs.sqlite';
-let database = sqlite.open(DB_FILE_PATH);
+let database;
+
+function getDatabase() {
+  return database ? database : sqlite.open(DB_FILE_PATH);
+}
 
 async function createTable(db) {
   await db.run(
@@ -56,7 +60,7 @@ async function log(...args) {
   // Write to stdout
   process.stdout.write(`${message}\n`);
 
-  let db = await database;
+  let db = await getDatabase(DB_FILE_PATH);
   await createTable(db);
 
   let cols = '`timestamp`, `group`, `level`, `message`';
