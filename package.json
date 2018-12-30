@@ -4,7 +4,7 @@
   "description": "Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query",
   "main": "sqlogs.js",
   "scripts": {
-    "test": "mocha --watch",
+    "test": "mocha",
     "lint": "eslint *.js **/*.js"
   },
   "keywords": [],
