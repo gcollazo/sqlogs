@@ -4,17 +4,20 @@
   "description": "Quickly send a copy of your `console.log` messages to a SQLite database that you can easily query",
   "main": "sqlogs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --watch",
+    "lint": "eslint *.js **/*.js"
   },
   "keywords": [],
   "author": "Giovanni Collazo",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.11",
     "sqlite": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^5.11.1",
     "eslint-config-blimp": "^8.1.0",
-    "eslint-plugin-prefer-let": "^1.0.1"
+    "eslint-plugin-prefer-let": "^1.0.1",
+    "mocha": "^5.2.0"
   }
 }

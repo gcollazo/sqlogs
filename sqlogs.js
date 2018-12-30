@@ -1,11 +1,11 @@
 /* eslint-disable prefer-destructuring */
 const sqlite = require('sqlite');
-
+const get = require('lodash/get');
+const last = require('lodash/last');
 const DB_FILE_PATH = './sqlogs.sqlite';
-let database = sqlite.open(DB_FILE_PATH);
 
-async function createTable(db) {
-  await db.run(
+function createTable(db) {
+  return db.run(
     'CREATE TABLE IF NOT EXISTS `logs` ' +
       '(`id` integer NOT NULL PRIMARY KEY, `message` text, ' +
       '`timestamp` text, `group` text, `level` text);'
@@ -33,53 +33,64 @@ async function addMissingColumns(db, fields) {
   return cols;
 }
 
-async function log(...args) {
-  let options = null;
+function prepareMessage(args) {
+  return args
+    .reduce((prev, next) => {
+      if (typeof next === 'object') {
+        prev = `${prev} ${JSON.stringify(next)}`;
+      } else {
+        prev = `${prev} ${next}`;
+      }
+      return prev;
+    }, '')
+    .trim();
+}
 
-  if (args.length > 1) {
-    let lastItem = args[args.length - 1];
-    if (lastItem.sqlogs) {
-      options = lastItem.sqlogs;
-      args.pop();
-    }
+function parseOptions(options) {
+  let group = get(options, 'group', 'DEFAULT');
+  let level = get(options, 'level', 'INFO');
+  let silent = get(options, 'silent', false);
+  let meta = get(options, 'meta', {});
+  return { group, level, meta, silent };
+}
+
+async function log(...args) {
+  // Try to get options
+  let options = get(last(args), 'sqlogs', null);
+
+  // parse user options
+  let { group, level, meta, silent } = parseOptions(options);
+
+  // remove sqlogs options from arguments
+  // so we don't store or print them
+  if (options) {
+    args.pop();
   }
 
-  let message = args.reduce((prev, next) => {
-    if (typeof next === 'object') {
-      prev = `${prev} ${JSON.stringify(next)}`;
-    } else {
-      prev = `${prev} ${next}`;
-    }
-    return prev;
-  }, '');
+  // process message
+  let message = prepareMessage(args);
 
-  // Write to stdout
-  process.stdout.write(`${message}\n`);
+  // write to stdout, skip if silent option is true
+  if (!silent) {
+    process.stdout.write(`${message}\n`);
+  }
 
-  let db = await database;
+  // async stuff starts here
+  let db = await sqlite.open(DB_FILE_PATH);
+
+  // create table if necessary
   await createTable(db);
 
+  // create missing columns
+  let newColumns = await addMissingColumns(db, meta);
+
+  // sql statement
   let cols = '`timestamp`, `group`, `level`, `message`';
   let values = '?, ?, ?, ?';
 
-  let group = 'DEFAULT';
-  if (options && options.group) {
-    group = options.group;
-  }
-
-  let level = 'INFO';
-  if (options && options.level) {
-    level = options.level;
-  }
-
-  let meta = {};
-  let metaCols = null;
-  if (options && options.meta) {
-    metaCols = await addMissingColumns(db, options.meta);
-    meta = options.meta;
-  }
-  if (metaCols) {
-    metaCols.forEach((col) => {
+  // modify sql statement with new columns
+  if (newColumns) {
+    newColumns.forEach((col) => {
       cols += `, \`${col}\``;
       values += ', ?';
     });
