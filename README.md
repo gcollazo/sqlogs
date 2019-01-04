@@ -77,3 +77,12 @@ const log = require('sqlogs');
 // Just write a simple message
 log('Hello, world!');
 ```
+
+### Custom database file path
+
+If you need to customize the path of the SQLite database file you can do the following.
+
+```js
+const createLogger = require('sqlogs/advanced');
+const log = createLogger({ path: './custom.sqlite' });
+```
