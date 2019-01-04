@@ -1,3 +1,2 @@
 const { createLogger } = require('../lib/logger');
-
-module.exports = createLogger;
+module.exports = { createLogger };
