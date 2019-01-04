@@ -5,7 +5,7 @@
   "main": "sqlogs.js",
   "scripts": {
     "test": "mocha",
-    "lint": "eslint *.js **/*.js"
+    "lint": "eslint sqlogs.js **/*.js"
   },
   "keywords": [],
   "author": "Giovanni Collazo",

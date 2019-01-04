@@ -88,5 +88,5 @@ typings/
 
 *.sqlite
 *.sqlite-journal
-app.js
-app-advanced.js
+demo.js
+demo-advanced.js
