@@ -4,8 +4,10 @@ const fs = require('fs');
 const assert = require('assert');
 const sqlite = require('sqlite');
 
-const log = require('../sqlogs');
 const DB_PATH = './sqlogs.sqlite';
+
+const { createLogHandler } = require('../lib/log');
+const log = createLogHandler({ dbFilePath: DB_PATH });
 
 const SELECT_TABLES_QUERY =
   /* eslint-disable-next-line quotes */
