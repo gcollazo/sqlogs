@@ -15,9 +15,9 @@
     "sqlite": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.11.1",
+    "eslint": "^6.2.2",
     "eslint-config-blimp": "^8.1.0",
     "eslint-plugin-prefer-let": "^1.0.1",
-    "mocha": "^5.2.0"
+    "mocha": "^6.2.0"
   }
 }
